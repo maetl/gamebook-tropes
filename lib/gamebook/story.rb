@@ -1,7 +1,7 @@
 module Gamebook
   class Story
     def initialize()
-      @story_types = [:pursuit, :escape, :repair]
+      @story_types = [:pursuit, :quest]
       @nodes = []
     end
 
@@ -10,25 +10,27 @@ module Gamebook
     end
 
     def generate_pursuit
+      add_node(:intro)
+
+      add_node([:branch, :merge]).sample
+
       rand(35..50).times do |inc|
         add_node(:star)
       end
+
+      add_node(:finale)
 
       @nodes
     end
 
-    def generate_escape
+    def generate_quest
+      add_node(:intro)
+
       rand(35..50).times do |inc|
         add_node(:star)
       end
 
-      @nodes
-    end
-
-    def generate_repair
-      rand(35..50).times do |inc|
-        add_node(:star)
-      end
+      add_node(:finale)
 
       @nodes
     end
