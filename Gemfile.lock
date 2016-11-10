@@ -1,12 +1,14 @@
 GEM
   specs:
     calyx (0.12.0)
+    mementus (0.5.7)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   calyx
+  mementus
 
 BUNDLED WITH
    1.11.2
