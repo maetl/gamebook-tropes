@@ -10,29 +10,32 @@ module Gamebook
     end
 
     def generate_pursuit
-      add_node(:intro)
-
-      add_node([:branch, :merge]).sample
-
-      rand(35..50).times do |inc|
-        add_node(:star)
-      end
-
-      add_node(:finale)
-
-      @nodes
+      # TODO: not implemented yet
+      generate_quest
     end
 
     def generate_quest
-      add_node(:intro)
+      Mementus::Graph.new do |graph|
+        previous_node = graph.add_node(label: :intro)
 
-      rand(35..50).times do |inc|
-        add_node(:star)
+        rand(35..50).times do |inc|
+          next_node = graph.add_node(label: :star)
+
+          graph.add_edge(
+            from: previous_node,
+            to: next_node
+          )
+
+          previous_node = next_node
+        end
+
+        next_node = graph.add_node(label: :finale)
+
+        graph.add_edge(
+          from: previous_node,
+          to: next_node
+        )
       end
-
-      add_node(:finale)
-
-      @nodes
     end
 
     def generate
