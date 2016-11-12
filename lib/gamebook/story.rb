@@ -2,11 +2,16 @@ module Gamebook
   class Story
     def initialize()
       @story_types = [:pursuit, :quest]
-      @nodes = []
     end
 
-    def add_node(type)
-      @nodes << type
+    def generate_branch(graph, previous_node)
+      rand(1..5).times do |inc|
+        next_node = graph.add_node(label: :star)
+        graph.add_edge(from: previous_node, to: next_node)
+        previous_node = next_node
+      end
+
+      previous_node
     end
 
     def generate_pursuit
@@ -15,26 +20,10 @@ module Gamebook
     end
 
     def generate_quest
-      Mementus::Graph.new do |graph|
-        previous_node = graph.add_node(label: :intro)
-
-        rand(35..50).times do |inc|
-          next_node = graph.add_node(label: :star)
-
-          graph.add_edge(
-            from: previous_node,
-            to: next_node
-          )
-
-          previous_node = next_node
-        end
-
-        next_node = graph.add_node(label: :finale)
-
-        graph.add_edge(
-          from: previous_node,
-          to: next_node
-        )
+      Mementus::Graph.new do
+        previous_node = generate_branch(self, add_node(label: :intro))
+        next_node = add_node(label: :finale)
+        add_edge(from: previous_node, to: next_node)
       end
     end
 
