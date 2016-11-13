@@ -6,7 +6,7 @@ module Gamebook
 
     def generate_branch(graph, previous_node)
       rand(1..5).times do |inc|
-        next_node = graph.add_node(label: :star)
+        next_node = graph.add_node(label: :star_system)
         graph.add_edge(from: previous_node, to: next_node)
         previous_node = next_node
       end
@@ -21,14 +21,18 @@ module Gamebook
 
     def generate_quest
       Mementus::Graph.new do
-        intro = add_node(label: :intro)
-        first_ref = intro.id
-        second_ref = intro.id
-        first_branch = generate_branch(self, first_ref)
-        second_branch = generate_branch(self, second_ref)
-        next_node = add_node(label: :finale)
-        add_edge(from: first_branch, to: next_node)
-        add_edge(from: second_branch, to: next_node)
+        intro = add_node(label: :interstellar_space)
+        branches = []
+
+        rand(1..5).times do
+          branches << generate_branch(self, intro)
+        end
+
+        next_node = add_node(label: :interstellar_space)
+
+        branches.each do |branch|
+          add_edge(from: branch, to: next_node)
+        end
       end
     end
 

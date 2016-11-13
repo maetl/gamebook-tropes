@@ -13,4 +13,4 @@ graph.edges.each do |edge|
   viz.add_edge("#{from.id}:#{from.label}", "#{to.id}:#{to.label}")
 end
 
-viz.output(png: 'out/two-branches.png')
+viz.output(png: 'out/many-branches.png')
