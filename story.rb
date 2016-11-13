@@ -6,11 +6,14 @@ graph = story.generate
 require 'graphviz'
 
 viz = GraphViz.new(:G, type: :digraph)
+viz[:bgcolor] = 'transparent'
 
 graph.edges.each do |edge|
   from = edge.from
   to = edge.to
-  viz.add_edge("#{from.id}:#{from.label}", "#{to.id}:#{to.label}")
+  viz.add_node(from.id.to_s, label: from.label, fontname: 'Lucida Grande', fontsize: '12', shape: 'rectangle', style: 'rounded', color: '.7 .3 1.0')
+  viz.add_node(to.id.to_s, label: to.label, fontname: 'Lucida Grande', fontsize: '12', shape: 'rectangle', style: 'rounded', color: '.7 .3 1.0')
+  viz.add_edge(from.id.to_s, to.id.to_s)
 end
 
-viz.output(png: 'out/time-cave.png')
+viz.output(png: 'out/styled-branches.png')
