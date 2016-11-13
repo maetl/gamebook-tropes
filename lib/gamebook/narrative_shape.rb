@@ -10,15 +10,20 @@ module Gamebook
       previous_node
     end
 
+    def branches(graph, previous_node)
+      branches = []
+
+      rand(1..5).times do
+        branches << branch(graph, previous_node)
+      end
+
+      branches
+    end
+
     def branch_and_bottleneck
       Mementus::Graph.new do
         intro = add_node(label: :interstellar_space)
-        branches = []
-
-        rand(1..5).times do
-          branches << branch(self, intro)
-        end
-
+        branches = branches(self, intro)
         next_node = add_node(label: :interstellar_space)
 
         branches.each do |branch|
@@ -30,11 +35,7 @@ module Gamebook
     def time_cave
       Mementus::Graph.new do
         intro = add_node(label: :interstellar_space)
-        branches = []
-
-        rand(1..5).times do
-          branches << branch(self, intro)
-        end
+        branches = branches(self, intro)
 
         branches.each do |branch|
           next_node = add_node(label: :interstellar_space)

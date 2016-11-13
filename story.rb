@@ -16,4 +16,4 @@ graph.edges.each do |edge|
   viz.add_edge(from.id.to_s, to.id.to_s)
 end
 
-viz.output(png: 'out/styled-branches.png')
+viz.output(png: 'out/recursive-branches.png')
