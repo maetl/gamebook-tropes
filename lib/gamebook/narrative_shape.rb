@@ -27,9 +27,25 @@ module Gamebook
       end
     end
 
+    def time_cave
+      Mementus::Graph.new do
+        intro = add_node(label: :interstellar_space)
+        branches = []
+
+        rand(1..5).times do
+          branches << branch(self, intro)
+        end
+
+        branches.each do |branch|
+          next_node = add_node(label: :interstellar_space)
+          add_edge(from: branch, to: next_node)
+        end
+      end
+    end
+
     def generate(story_type)
       case story_type
-      when :pursuit then branch_and_bottleneck
+      when :pursuit then time_cave
       when :quest then branch_and_bottleneck
       end
     end
