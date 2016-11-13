@@ -21,9 +21,14 @@ module Gamebook
 
     def generate_quest
       Mementus::Graph.new do
-        previous_node = generate_branch(self, add_node(label: :intro))
+        intro = add_node(label: :intro)
+        first_ref = intro.id
+        second_ref = intro.id
+        first_branch = generate_branch(self, first_ref)
+        second_branch = generate_branch(self, second_ref)
         next_node = add_node(label: :finale)
-        add_edge(from: previous_node, to: next_node)
+        add_edge(from: first_branch, to: next_node)
+        add_edge(from: second_branch, to: next_node)
       end
     end
 

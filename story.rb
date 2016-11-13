@@ -7,8 +7,10 @@ require 'graphviz'
 
 viz = GraphViz.new(:G, type: :digraph)
 
-graph.nodes.each do |node|
-  viz.add_edge(node.id.to_s, node.outgoing.first.id.to_s) if !node.outgoing_edges.empty?
+graph.edges.each do |edge|
+  from = edge.from
+  to = edge.to
+  viz.add_edge("#{from.id}:#{from.label}", "#{to.id}:#{to.label}")
 end
 
-viz.output(png: 'out/linearity.png')
+viz.output(png: 'out/two-branches.png')
