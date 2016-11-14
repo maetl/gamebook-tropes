@@ -32,7 +32,7 @@ module Gamebook
       end
     end
 
-    def time_cave
+    def branch_and_expand
       Mementus::Graph.new do
         intro = add_node(label: :interstellar_space)
         branches = branches(self, intro)
@@ -46,7 +46,7 @@ module Gamebook
 
     def generate(story_type)
       case story_type
-      when :pursuit then time_cave
+      when :pursuit then branch_and_expand
       when :quest then branch_and_bottleneck
       end
     end
